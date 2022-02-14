@@ -1,6 +1,8 @@
 package cl.medical.medicalapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "patient")
@@ -16,7 +18,8 @@ public class Patient {
     @Column(length = 72)
     private String lastName;
 
-    @Column(nullable = false, length = 12)
+    @Column(nullable = false, length = 10, unique = true)
+    @Size(min = 9, max = 10)
     private String rut;
 
     private String address;
@@ -24,6 +27,7 @@ public class Patient {
     private String phone;
 
     @Column(nullable = false)
+    @Email()
     private String email;
 
     public Integer getIdPatient() {
