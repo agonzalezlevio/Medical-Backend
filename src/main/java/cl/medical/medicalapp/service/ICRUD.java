@@ -6,12 +6,12 @@ public interface ICRUD<T> {
 
     List<T> findAll();
 
-    T findById(Integer id) throws Exception;
+    T findById(Integer id);
 
     T save(T t);
 
-    T update(Integer id, T t) throws Exception;
+    T update(Integer id, T t);
 
-    void deleteById(Integer id) throws Exception;
+    void deleteById(Integer id);
 
 }

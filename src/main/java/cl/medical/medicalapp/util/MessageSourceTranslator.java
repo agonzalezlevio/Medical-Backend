@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessageSourceTranslator {
-    private ResourceBundleMessageSource messageSource;
+    private final ResourceBundleMessageSource messageSource;
 
     @Autowired
-    MessageSourceTranslator(ResourceBundleMessageSource resourceBundleMessageSource){
+    MessageSourceTranslator(ResourceBundleMessageSource resourceBundleMessageSource) {
         this.messageSource = resourceBundleMessageSource;
     }
 
-    public String toLocale(String messageCode, Object[]... args){
+    public String toLocale(String messageCode, Object[]... args) {
         return messageSource.getMessage(messageCode, args, LocaleContextHolder.getLocale());
     }
 }

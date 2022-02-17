@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("patient")
 public class PatientController {
 
+    private final IPatientService patientService;
+
     @Autowired
-    private IPatientService patientService;
+    public PatientController(IPatientService patientService) {
+        this.patientService = patientService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Patient>> findAll() {
@@ -25,7 +29,7 @@ public class PatientController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Patient> findById(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Patient> findById(@PathVariable("id") Integer id) {
         Patient patient = this.patientService.findById(id);
         return ResponseEntity.ok(patient);
     }
@@ -38,13 +42,13 @@ public class PatientController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Patient> delete(@Valid @PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<Patient> delete(@Valid @PathVariable("id") Integer id) {
         this.patientService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Patient> update(@PathVariable("id") Integer id, @Valid @RequestBody Patient patient) throws Exception {
+    public ResponseEntity<Patient> update(@PathVariable("id") Integer id, @Valid @RequestBody Patient patient) {
         Patient patientUpdated = this.patientService.update(id, patient);
         return ResponseEntity.ok(patientUpdated);
     }

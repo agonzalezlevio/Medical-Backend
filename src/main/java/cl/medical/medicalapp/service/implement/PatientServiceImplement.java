@@ -13,8 +13,12 @@ import java.util.Optional;
 @Service
 public class PatientServiceImplement implements IPatientService {
 
+    private final PatientRepository patientRepository;
+
     @Autowired
-    private PatientRepository patientRepository;
+    public PatientServiceImplement(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     @Override
     public List<Patient> findAll() {
@@ -22,9 +26,9 @@ public class PatientServiceImplement implements IPatientService {
     }
 
     @Override
-    public Patient findById(Integer id) throws Exception {
+    public Patient findById(Integer id) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(id);
-        if (!optionalPatient.isPresent()) {
+        if (optionalPatient.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
         return optionalPatient.get();
@@ -36,9 +40,9 @@ public class PatientServiceImplement implements IPatientService {
     }
 
     @Override
-    public Patient update(Integer id, Patient patient) throws Exception {
+    public Patient update(Integer id, Patient patient) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(id);
-        if (!optionalPatient.isPresent()) {
+        if (optionalPatient.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
         Patient patientUpdated = optionalPatient.get();
@@ -52,9 +56,9 @@ public class PatientServiceImplement implements IPatientService {
     }
 
     @Override
-    public void deleteById(Integer id) throws Exception {
+    public void deleteById(Integer id) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(id);
-        if (!optionalPatient.isPresent()) {
+        if (optionalPatient.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
         this.patientRepository.deleteById(id);
