@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     public static final String FIELD_ERROR_SEPARATOR = ": ";
+    public static final String ERROR_SEPARATOR = "; ";
 
     private final MessageSourceTranslator messageSourceTranslator;
 
@@ -54,7 +55,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<ExceptionResponse> handleDataIntegrityViolation(final DataAccessException exception, WebRequest request) {
-        final String message = exception.getMessage();
+        final String message = exception.getMessage() + ERROR_SEPARATOR + exception.getMostSpecificCause().getMessage();
         final HttpStatus status = HttpStatus.CONFLICT;
         ExceptionResponse exceptionResponse = this.getExceptionResponseEntity(exception, status, request, Collections.singletonList(message));
         return new ResponseEntity<>(exceptionResponse, status);
