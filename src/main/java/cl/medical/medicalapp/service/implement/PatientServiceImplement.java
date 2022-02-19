@@ -52,7 +52,7 @@ public class PatientServiceImplement implements IPatientService {
         patientUpdated.setLastName(patient.getLastName());
         patientUpdated.setPhone(patient.getPhone());
         patientUpdated.setRut(patient.getRut());
-        return this.patientRepository.save(patient);
+        return this.patientRepository.save(patientUpdated);
     }
 
     @Override
