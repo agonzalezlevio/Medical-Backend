@@ -64,7 +64,7 @@ public class PatientController {
         return ResponseEntity.created(location).build();
     }
 
-    @Operation(summary = "Update an existing patient", tags = { "patient" })
+    @Operation(summary = "Update an existing patient", tags = {"patient"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "400", description = "Invalid input"),
@@ -76,10 +76,10 @@ public class PatientController {
         return ResponseEntity.ok(patientUpdated);
     }
 
-    @Operation(summary = "Deletes a patient", tags = { "patient" })
+    @Operation(summary = "Deletes a patient", tags = {"patient"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successful operation"),
-            @ApiResponse(responseCode = "404", description = "Patient not found") })
+            @ApiResponse(responseCode = "404", description = "Patient not found")})
     @DeleteMapping("{id}")
     public ResponseEntity<Patient> delete(@Valid @PathVariable("id") Integer id) {
         this.patientService.deleteById(id);
