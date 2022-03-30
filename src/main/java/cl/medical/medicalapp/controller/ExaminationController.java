@@ -31,7 +31,7 @@ public class ExaminationController {
         this.examinationService = examinationService;
     }
 
-    @Operation(summary = "Find all examinations", tags = {"examinations"})
+    @Operation(summary = "Find all examinations", tags = {"examination"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Examination.class)))),
     })
