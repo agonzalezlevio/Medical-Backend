@@ -10,6 +10,7 @@ public class Specialty {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idSpecialty;
 
+    @Column(nullable = false, length = 72)
     private String name;
 
     public Integer getIdSpecialty() {
