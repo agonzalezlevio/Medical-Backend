@@ -10,8 +10,10 @@ public class Examination {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idExamination;
 
+    @Column(nullable = false, length = 72)
     private String name;
 
+    @Column(length = 256)
     private String description;
 
     public Integer getIdExamination() {
