@@ -11,6 +11,7 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idUser;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
