@@ -76,11 +76,11 @@ public class Consultation {
         this.doctor = doctor;
     }
 
-    public List<Detail> getConsultationDetails() {
+    public List<Detail> getDetails() {
         return details;
     }
 
-    public void setConsultationDetails(List<Detail> details) {
+    public void setDetails(List<Detail> details) {
         this.details = details;
     }
 

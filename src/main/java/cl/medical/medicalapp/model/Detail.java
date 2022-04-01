@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Detail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDetail;
 
     private String diagnosis;
