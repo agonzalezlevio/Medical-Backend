@@ -1,10 +1,13 @@
 package cl.medical.medicalapp.service.implement;
 
+import cl.medical.medicalapp.assembler.ConsultationResumeAssembler;
+import cl.medical.medicalapp.dto.ConsultationResumeDto;
 import cl.medical.medicalapp.exception.NotFoundException;
 import cl.medical.medicalapp.model.Consultation;
 import cl.medical.medicalapp.repository.ConsultationRepository;
 import cl.medical.medicalapp.service.IConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +18,12 @@ public class ConsultationServiceImplement implements IConsultationService {
 
     private final ConsultationRepository consultationRepository;
 
+    private final ConsultationResumeAssembler consultationResumeAssembler;
+
     @Autowired
-    public ConsultationServiceImplement(ConsultationRepository consultationRepository) {
+    public ConsultationServiceImplement(ConsultationRepository consultationRepository, ConsultationResumeAssembler consultationResumeAssembler) {
         this.consultationRepository = consultationRepository;
+        this.consultationResumeAssembler = consultationResumeAssembler;
     }
 
     @Override
@@ -70,5 +76,19 @@ public class ConsultationServiceImplement implements IConsultationService {
         this.consultationRepository.deleteById(id);
     }
 
+    @Override
+    public CollectionModel<ConsultationResumeDto> findAllConsultationResume() {
+        List<Consultation> consultationList = this.consultationRepository.findAll();
+        return this.consultationResumeAssembler.toCollectionModel(consultationList);
+    }
 
+    @Override
+    public ConsultationResumeDto findByIdConsultationResume(Integer id) {
+        Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
+        if (optionalConsultation.isEmpty()) {
+            throw new NotFoundException("exception.entityId.text.notFound");
+        }
+        Consultation consultation = optionalConsultation.get();
+        return this.consultationResumeAssembler.toModel(consultation);
+    }
 }

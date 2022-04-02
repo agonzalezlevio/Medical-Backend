@@ -1,5 +1,6 @@
 package cl.medical.medicalapp.controller;
 
+import cl.medical.medicalapp.dto.ConsultationResumeDto;
 import cl.medical.medicalapp.model.Consultation;
 import cl.medical.medicalapp.service.IConsultationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,6 +42,27 @@ public class ConsultationController {
         return ResponseEntity.ok(consultationList);
     }
 
+    @Operation(summary = "Find all consultations resume", tags = {"consultation"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/hal+json", array = @ArraySchema(schema = @Schema(implementation = ConsultationResumeDto.class)))),
+    })
+    @GetMapping(value = "resume", produces = { "application/hal+json" })
+    public ResponseEntity<CollectionModel<ConsultationResumeDto>> findAllConsultationResume() {
+        CollectionModel<ConsultationResumeDto> ConsultationResumeDtoList = this.consultationService.findAllConsultationResume();
+        return ResponseEntity.ok(ConsultationResumeDtoList);
+    }
+
+    @Operation(summary = "Find consultation resume by ID", tags = {"consultation"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/hal+json", schema = @Schema(implementation = ConsultationResumeDto.class))),
+            @ApiResponse(responseCode = "404", description = "Consultation not found")
+    })
+    @GetMapping(value = "{id}/resume", produces = { "application/hal+json" })
+    public ResponseEntity<ConsultationResumeDto> findByIdConsultationResume(@PathVariable("id") Integer id) {
+        ConsultationResumeDto ConsultationResumeDto = this.consultationService.findByIdConsultationResume(id);
+        return ResponseEntity.ok(ConsultationResumeDto);
+    }
+
     @Operation(summary = "Find consultation by ID", tags = {"consultation"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = Consultation.class))),
@@ -50,6 +73,8 @@ public class ConsultationController {
         Consultation consultation = this.consultationService.findById(id);
         return ResponseEntity.ok(consultation);
     }
+
+
 
     @Operation(summary = "Add a new consultation", tags = {"consultation"})
     @ApiResponses(value = {

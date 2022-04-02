@@ -1,0 +1,36 @@
+package cl.medical.medicalapp.dto;
+
+import org.springframework.hateoas.RepresentationModel;
+
+public class ConsultationResumeDto extends RepresentationModel<ConsultationResumeDto> {
+
+    private Integer idConsultation;
+
+    private String fullNamePatient;
+
+    private String fullNameDoctor;
+
+    public Integer getIdConsultation() {
+        return idConsultation;
+    }
+
+    public void setIdConsultation(Integer idConsultation) {
+        this.idConsultation = idConsultation;
+    }
+
+    public String getFullNamePatient() {
+        return fullNamePatient;
+    }
+
+    public void setFullNamePatient(String fullNamePatient) {
+        this.fullNamePatient = fullNamePatient;
+    }
+
+    public String getFullNameDoctor() {
+        return fullNameDoctor;
+    }
+
+    public void setFullNameDoctor(String fullNameDoctor) {
+        this.fullNameDoctor = fullNameDoctor;
+    }
+}
