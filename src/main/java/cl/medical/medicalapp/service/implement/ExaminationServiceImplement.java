@@ -6,6 +6,7 @@ import cl.medical.medicalapp.repository.ExaminationRepository;
 import cl.medical.medicalapp.service.IExaminationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +22,13 @@ public class ExaminationServiceImplement implements IExaminationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Examination> findAll() {
         return this.examinationRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Examination findById(Integer id) {
         Optional<Examination> optionalExamination = this.examinationRepository.findById(id);
         if (optionalExamination.isEmpty()) {
@@ -35,11 +38,13 @@ public class ExaminationServiceImplement implements IExaminationService {
     }
 
     @Override
+    @Transactional
     public Examination save(Examination examination) {
         return this.examinationRepository.save(examination);
     }
 
     @Override
+    @Transactional
     public Examination update(Integer id, Examination examination) {
         Optional<Examination> optionalExamination = this.examinationRepository.findById(id);
         if (optionalExamination.isEmpty()) {
@@ -52,6 +57,7 @@ public class ExaminationServiceImplement implements IExaminationService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Integer id) {
         Optional<Examination> optionalExamination = this.examinationRepository.findById(id);
         if (optionalExamination.isEmpty()) {

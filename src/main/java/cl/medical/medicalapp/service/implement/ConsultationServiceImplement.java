@@ -9,6 +9,7 @@ import cl.medical.medicalapp.service.IConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +28,13 @@ public class ConsultationServiceImplement implements IConsultationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Consultation> findAll() {
         return this.consultationRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Consultation findById(Integer id) {
         Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
@@ -41,6 +44,7 @@ public class ConsultationServiceImplement implements IConsultationService {
     }
 
     @Override
+    @Transactional
     public Consultation save(Consultation consultation) {
         consultation.getDetails().forEach(detail -> {
             detail.setConsultation(consultation);
@@ -49,6 +53,7 @@ public class ConsultationServiceImplement implements IConsultationService {
     }
 
     @Override
+    @Transactional
     public Consultation update(Integer id, Consultation consultation) {
         Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
@@ -68,6 +73,7 @@ public class ConsultationServiceImplement implements IConsultationService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Integer id) {
         Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
@@ -77,12 +83,14 @@ public class ConsultationServiceImplement implements IConsultationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CollectionModel<ConsultationResumeDto> findAllConsultationResume() {
         List<Consultation> consultationList = this.consultationRepository.findAll();
         return this.consultationResumeAssembler.toCollectionModel(consultationList);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ConsultationResumeDto findByIdConsultationResume(Integer id) {
         Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {

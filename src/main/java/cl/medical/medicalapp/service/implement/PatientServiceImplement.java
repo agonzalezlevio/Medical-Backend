@@ -6,6 +6,7 @@ import cl.medical.medicalapp.repository.PatientRepository;
 import cl.medical.medicalapp.service.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +22,13 @@ public class PatientServiceImplement implements IPatientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Patient> findAll() {
         return this.patientRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Patient findById(Integer id) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(id);
         if (optionalPatient.isEmpty()) {
@@ -35,11 +38,13 @@ public class PatientServiceImplement implements IPatientService {
     }
 
     @Override
+    @Transactional
     public Patient save(Patient patient) {
         return this.patientRepository.save(patient);
     }
 
     @Override
+    @Transactional
     public Patient update(Integer id, Patient patient) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(id);
         if (optionalPatient.isEmpty()) {
@@ -56,6 +61,7 @@ public class PatientServiceImplement implements IPatientService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Integer id) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(id);
         if (optionalPatient.isEmpty()) {

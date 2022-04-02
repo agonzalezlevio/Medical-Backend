@@ -6,6 +6,7 @@ import cl.medical.medicalapp.repository.SpecialtyRepository;
 import cl.medical.medicalapp.service.ISpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +22,13 @@ public class SpecialtyServiceImplement implements ISpecialtyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Specialty> findAll() {
         return this.specialtyRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Specialty findById(Integer id) {
         Optional<Specialty> optionalSpecialty = this.specialtyRepository.findById(id);
         if (optionalSpecialty.isEmpty()) {
@@ -35,11 +38,13 @@ public class SpecialtyServiceImplement implements ISpecialtyService {
     }
 
     @Override
+    @Transactional
     public Specialty save(Specialty specialty) {
         return this.specialtyRepository.save(specialty);
     }
 
     @Override
+    @Transactional
     public Specialty update(Integer id, Specialty specialty) {
         Optional<Specialty> optionalSpecialty = this.specialtyRepository.findById(id);
         if (optionalSpecialty.isEmpty()) {
@@ -51,6 +56,7 @@ public class SpecialtyServiceImplement implements ISpecialtyService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Integer id) {
         Optional<Specialty> optionalSpecialty = this.specialtyRepository.findById(id);
         if (optionalSpecialty.isEmpty()) {
@@ -58,7 +64,6 @@ public class SpecialtyServiceImplement implements ISpecialtyService {
         }
         this.specialtyRepository.deleteById(id);
     }
-
 
 
 }
