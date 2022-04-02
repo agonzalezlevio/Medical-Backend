@@ -41,10 +41,10 @@ public class ConsultationResumeAssembler implements RepresentationModelAssembler
         consultationResumeDto.setFullNameDoctor(consultation.getDoctor().getFirstName() + FIELD_SEPARATOR + consultation.getDoctor().getLastName());
         consultationResumeDto.setFullNamePatient(consultation.getPatient().getFirstName() + FIELD_SEPARATOR + consultation.getPatient().getLastName());
         // patient
-        Link patientLink = linkTo(methodOn(PatientController.class).findById((consultation.getPatient().getIdPatient()))).withSelfRel();
+        Link patientLink = linkTo(methodOn(PatientController.class).findById((consultation.getPatient().getIdPatient()))).withRel("patient");
         consultationResumeDto.add(patientLink);
         // doctor
-        Link doctorLink = linkTo(methodOn(DoctorController.class).findById((consultation.getDoctor().getIdDoctor()))).withSelfRel();
+        Link doctorLink = linkTo(methodOn(DoctorController.class).findById((consultation.getDoctor().getIdDoctor()))).withRel("doctor");
         consultationResumeDto.add(doctorLink);
         // self
         Link selfLink = linkTo(methodOn(ConsultationController.class).findById((consultation.getIdConsultation()))).withSelfRel();
