@@ -1,6 +1,6 @@
 package cl.medical.medicalapp.service;
 
-import cl.medical.medicalapp.model.Doctor;
+import cl.medical.medicalapp.entity.DoctorEntity;
 
-public interface IDoctorService extends ICRUD<Doctor> {
+public interface IDoctorService extends IGenericService<DoctorEntity> {
 }

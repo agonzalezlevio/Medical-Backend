@@ -1,6 +1,6 @@
 package cl.medical.medicalapp.service;
 
-import cl.medical.medicalapp.model.Specialty;
+import cl.medical.medicalapp.entity.SpecialtyEntity;
 
-public interface ISpecialtyService extends ICRUD<Specialty>{
+public interface ISpecialtyService extends IGenericService<SpecialtyEntity> {
 }

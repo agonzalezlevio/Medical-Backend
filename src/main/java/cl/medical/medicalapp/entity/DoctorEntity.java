@@ -1,10 +1,10 @@
-package cl.medical.medicalapp.model;
+package cl.medical.medicalapp.entity;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+public class DoctorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

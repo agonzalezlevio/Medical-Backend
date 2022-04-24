@@ -1,4 +1,4 @@
-package cl.medical.medicalapp.model;
+package cl.medical.medicalapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "detail")
-public class Detail {
+public class DetailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Detail {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_consultation", nullable = false, foreignKey = @ForeignKey(name = "FK_detail_consultation"))
-    private Consultation consultation;
+    private ConsultationEntity consultation;
 
     public Integer getIdDetail() {
         return idDetail;
@@ -45,11 +45,11 @@ public class Detail {
         this.treatment = treatment;
     }
 
-    public Consultation getConsultation() {
+    public ConsultationEntity getConsultation() {
         return consultation;
     }
 
-    public void setConsultation(Consultation consultation) {
+    public void setConsultation(ConsultationEntity consultation) {
         this.consultation = consultation;
     }
 }

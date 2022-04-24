@@ -1,12 +1,12 @@
 package cl.medical.medicalapp.service;
 
-import cl.medical.medicalapp.dto.ConsultationResumeDto;
-import cl.medical.medicalapp.model.Consultation;
+import cl.medical.medicalapp.entity.ConsultationEntity;
+import cl.medical.medicalapp.model.ConsultationResumeModel;
 import org.springframework.hateoas.CollectionModel;
 
-public interface IConsultationService extends ICRUD<Consultation> {
+public interface IConsultationService extends IGenericService<ConsultationEntity> {
 
-    CollectionModel<ConsultationResumeDto> findAllConsultationResume();
+    CollectionModel<ConsultationResumeModel> findAllConsultationResume();
 
-    ConsultationResumeDto findByIdConsultationResume(Integer id);
+    ConsultationResumeModel findByIdConsultationResume(Integer id);
 }

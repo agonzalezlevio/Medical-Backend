@@ -1,4 +1,4 @@
-package cl.medical.medicalapp.model;
+package cl.medical.medicalapp.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "patient")
-public class Patient {
+public class PatientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

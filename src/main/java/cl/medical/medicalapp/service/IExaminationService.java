@@ -1,6 +1,6 @@
 package cl.medical.medicalapp.service;
 
-import cl.medical.medicalapp.model.Examination;
+import cl.medical.medicalapp.entity.ExaminationEntity;
 
-public interface IExaminationService extends ICRUD<Examination> {
+public interface IExaminationService extends IGenericService<ExaminationEntity> {
 }

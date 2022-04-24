@@ -2,7 +2,7 @@ package cl.medical.medicalapp.service;
 
 import java.util.List;
 
-public interface ICRUD<T> {
+public interface IGenericService<T> {
 
     List<T> findAll();
 

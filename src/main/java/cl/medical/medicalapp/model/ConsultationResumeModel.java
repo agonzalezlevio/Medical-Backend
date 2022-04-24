@@ -1,8 +1,8 @@
-package cl.medical.medicalapp.dto;
+package cl.medical.medicalapp.model;
 
 import org.springframework.hateoas.RepresentationModel;
 
-public class ConsultationResumeDto extends RepresentationModel<ConsultationResumeDto> {
+public class ConsultationResumeModel extends RepresentationModel<ConsultationResumeModel> {
 
     private Integer idConsultation;
 

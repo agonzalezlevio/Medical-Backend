@@ -1,10 +1,10 @@
 package cl.medical.medicalapp.service.implement;
 
 import cl.medical.medicalapp.assembler.ConsultationResumeAssembler;
-import cl.medical.medicalapp.dto.ConsultationResumeDto;
+import cl.medical.medicalapp.entity.ConsultationEntity;
 import cl.medical.medicalapp.exception.NotFoundException;
-import cl.medical.medicalapp.model.Consultation;
-import cl.medical.medicalapp.repository.ConsultationRepository;
+import cl.medical.medicalapp.model.ConsultationResumeModel;
+import cl.medical.medicalapp.repository.IConsultationRepository;
 import cl.medical.medicalapp.service.IConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -17,26 +17,26 @@ import java.util.Optional;
 @Service
 public class ConsultationServiceImplement implements IConsultationService {
 
-    private final ConsultationRepository consultationRepository;
+    private final IConsultationRepository consultationRepository;
 
     private final ConsultationResumeAssembler consultationResumeAssembler;
 
     @Autowired
-    public ConsultationServiceImplement(ConsultationRepository consultationRepository, ConsultationResumeAssembler consultationResumeAssembler) {
+    public ConsultationServiceImplement(IConsultationRepository consultationRepository, ConsultationResumeAssembler consultationResumeAssembler) {
         this.consultationRepository = consultationRepository;
         this.consultationResumeAssembler = consultationResumeAssembler;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Consultation> findAll() {
+    public List<ConsultationEntity> findAll() {
         return this.consultationRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Consultation findById(Integer id) {
-        Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
+    public ConsultationEntity findById(Integer id) {
+        Optional<ConsultationEntity> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
@@ -45,7 +45,7 @@ public class ConsultationServiceImplement implements IConsultationService {
 
     @Override
     @Transactional
-    public Consultation save(Consultation consultation) {
+    public ConsultationEntity save(ConsultationEntity consultation) {
         consultation.getDetails().forEach(detail -> {
             detail.setConsultation(consultation);
         });
@@ -54,12 +54,12 @@ public class ConsultationServiceImplement implements IConsultationService {
 
     @Override
     @Transactional
-    public Consultation update(Integer id, Consultation consultation) {
-        Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
+    public ConsultationEntity update(Integer id, ConsultationEntity consultation) {
+        Optional<ConsultationEntity> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
-        Consultation consultationUpdated = optionalConsultation.get();
+        ConsultationEntity consultationUpdated = optionalConsultation.get();
         consultationUpdated.setDate(consultation.getDate());
         consultationUpdated.setPatient(consultation.getPatient());
         consultationUpdated.setSpecialty(consultation.getSpecialty());
@@ -75,7 +75,7 @@ public class ConsultationServiceImplement implements IConsultationService {
     @Override
     @Transactional
     public void deleteById(Integer id) {
-        Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
+        Optional<ConsultationEntity> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
@@ -84,19 +84,20 @@ public class ConsultationServiceImplement implements IConsultationService {
 
     @Override
     @Transactional(readOnly = true)
-    public CollectionModel<ConsultationResumeDto> findAllConsultationResume() {
-        List<Consultation> consultationList = this.consultationRepository.findAll();
-        return this.consultationResumeAssembler.toCollectionModel(consultationList);
+    public CollectionModel<ConsultationResumeModel> findAllConsultationResume() {
+        List<ConsultationEntity> consultationResumeModels = this.consultationRepository.findAll();
+        return this.consultationResumeAssembler.toCollectionModel(consultationResumeModels);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ConsultationResumeDto findByIdConsultationResume(Integer id) {
-        Optional<Consultation> optionalConsultation = this.consultationRepository.findById(id);
+    public ConsultationResumeModel findByIdConsultationResume(Integer id) {
+        Optional<ConsultationEntity> optionalConsultation = this.consultationRepository.findById(id);
         if (optionalConsultation.isEmpty()) {
             throw new NotFoundException("exception.entityId.text.notFound");
         }
-        Consultation consultation = optionalConsultation.get();
-        return this.consultationResumeAssembler.toModel(consultation);
+        ConsultationEntity consultation = optionalConsultation.get();
+        ConsultationResumeModel consultationResumeModel = this.consultationResumeAssembler.toModel(consultation);
+        return consultationResumeModel;
     }
 }

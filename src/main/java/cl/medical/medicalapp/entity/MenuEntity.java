@@ -1,11 +1,11 @@
-package cl.medical.medicalapp.model;
+package cl.medical.medicalapp.entity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "menu")
-public class Menu {
+public class MenuEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,7 +25,7 @@ public class Menu {
             name = "menu_role",
             joinColumns = @JoinColumn(name = "id_menu", referencedColumnName = "idMenu"),
             inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "idRole"))
-    private List<Role> roles;
+    private List<RoleEntity> roles;
 
     public Integer getIdMenu() {
         return idMenu;
@@ -59,11 +59,11 @@ public class Menu {
         this.icon = icon;
     }
 
-    public List<Role> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
     }
 }

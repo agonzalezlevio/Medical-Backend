@@ -1,6 +1,6 @@
 package cl.medical.medicalapp.controller;
 
-import cl.medical.medicalapp.model.Doctor;
+import cl.medical.medicalapp.entity.DoctorEntity;
 import cl.medical.medicalapp.service.IDoctorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -32,34 +32,34 @@ public class DoctorController {
 
     @Operation(summary = "Find all doctors", tags = {"doctor"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Doctor.class)))),
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = DoctorEntity.class)))),
     })
     @GetMapping
-    public ResponseEntity<List<Doctor>> findAll() {
-        List<Doctor> doctorList = this.doctorService.findAll();
-        return ResponseEntity.ok(doctorList);
+    public ResponseEntity<List<DoctorEntity>> findAll() {
+        List<DoctorEntity> doctors = this.doctorService.findAll();
+        return ResponseEntity.ok(doctors);
     }
 
     @Operation(summary = "Find doctor by ID", tags = {"doctor"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = Doctor.class))),
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = DoctorEntity.class))),
             @ApiResponse(responseCode = "404", description = "Doctor not found")
     })
     @GetMapping("{id}")
-    public ResponseEntity<Doctor> findById(@PathVariable("id") Integer id) {
-        Doctor doctor = this.doctorService.findById(id);
+    public ResponseEntity<DoctorEntity> findById(@PathVariable("id") Integer id) {
+        DoctorEntity doctor = this.doctorService.findById(id);
         return ResponseEntity.ok(doctor);
     }
 
     @Operation(summary = "Add a new doctor", tags = {"doctor"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Doctor created", content = @Content(schema = @Schema(implementation = Doctor.class))),
+            @ApiResponse(responseCode = "201", description = "Doctor created", content = @Content(schema = @Schema(implementation = DoctorEntity.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "409", description = "Doctor or fields already exists")
     })
     @PostMapping
-    public ResponseEntity<Doctor> save(@Valid @RequestBody Doctor doctor) {
-        Doctor doctorSaved = this.doctorService.save(doctor);
+    public ResponseEntity<DoctorEntity> save(@Valid @RequestBody DoctorEntity doctor) {
+        DoctorEntity doctorSaved = this.doctorService.save(doctor);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(doctorSaved.getIdDoctor()).toUri();
         return ResponseEntity.created(location).build();
     }
@@ -71,8 +71,8 @@ public class DoctorController {
             @ApiResponse(responseCode = "404", description = "Doctor not found"),
     })
     @PutMapping("{id}")
-    public ResponseEntity<Doctor> update(@PathVariable("id") Integer id, @Valid @RequestBody Doctor doctor) {
-        Doctor doctorUpdated = this.doctorService.update(id, doctor);
+    public ResponseEntity<DoctorEntity> update(@PathVariable("id") Integer id, @Valid @RequestBody DoctorEntity doctor) {
+        DoctorEntity doctorUpdated = this.doctorService.update(id, doctor);
         return ResponseEntity.ok(doctorUpdated);
     }
 
@@ -81,7 +81,7 @@ public class DoctorController {
             @ApiResponse(responseCode = "204", description = "Successful operation"),
             @ApiResponse(responseCode = "404", description = "Doctor not found")})
     @DeleteMapping("{id}")
-    public ResponseEntity<Doctor> delete(@Valid @PathVariable("id") Integer id) {
+    public ResponseEntity<DoctorEntity> delete(@Valid @PathVariable("id") Integer id) {
         this.doctorService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

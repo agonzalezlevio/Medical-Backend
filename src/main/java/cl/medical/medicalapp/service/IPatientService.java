@@ -1,7 +1,7 @@
 package cl.medical.medicalapp.service;
 
-import cl.medical.medicalapp.model.Patient;
+import cl.medical.medicalapp.entity.PatientEntity;
 
-public interface IPatientService extends ICRUD<Patient> {
+public interface IPatientService extends IGenericService<PatientEntity> {
 
 }
