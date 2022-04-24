@@ -12,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "user-account")
+@Tag(name = "user")
 public interface IUserApiDocument {
 
-    @Operation(summary = "Find all user accounts", tags = {"user-account"})
+    @Operation(summary = "Find all user", tags = {"user"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserEntity.class)))),
     })
