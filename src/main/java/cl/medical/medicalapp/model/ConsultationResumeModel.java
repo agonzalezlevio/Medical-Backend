@@ -1,7 +1,9 @@
 package cl.medical.medicalapp.model;
 
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
+@Relation(collectionRelation = "consultations")
 public class ConsultationResumeModel extends RepresentationModel<ConsultationResumeModel> {
 
     private Integer idConsultation;
