@@ -6,6 +6,7 @@ import cl.medical.medicalapp.model.ConsultationResumeModel;
 import cl.medical.medicalapp.service.IConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,14 +34,14 @@ public class ConsultationController implements IConsultationApiDocument {
     }
 
     @Override
-    @GetMapping(value = "resume", produces = {"application/hal+json"})
+    @GetMapping(value = "resume", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<CollectionModel<ConsultationResumeModel>> findAllConsultationResume() {
         CollectionModel<ConsultationResumeModel> consultationResumeModels = this.consultationService.findAllConsultationResume();
         return ResponseEntity.ok(consultationResumeModels);
     }
 
     @Override
-    @GetMapping(value = "{id}/resume", produces = {"application/hal+json"})
+    @GetMapping(value = "{id}/resume", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<ConsultationResumeModel> findByIdConsultationResume(@PathVariable("id") Integer id) {
         ConsultationResumeModel consultationResumeModel = this.consultationService.findByIdConsultationResume(id);
         return ResponseEntity.ok(consultationResumeModel);

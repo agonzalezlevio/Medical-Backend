@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,19 +21,19 @@ public interface IConsultationApiDocument {
 
     @Operation(summary = "Find all consultations", tags = {"consultation"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ConsultationEntity.class)))),
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ConsultationEntity.class)))),
     })
     ResponseEntity<List<ConsultationEntity>> findAll();
 
     @Operation(summary = "Find all consultations resume", tags = {"consultation"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/hal+json", array = @ArraySchema(schema = @Schema(implementation = ConsultationResumeModel.class)))),
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = MediaTypes.HAL_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ConsultationResumeModel.class)))),
     })
     ResponseEntity<CollectionModel<ConsultationResumeModel>> findAllConsultationResume();
 
     @Operation(summary = "Find consultation resume by ID", tags = {"consultation"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/hal+json", schema = @Schema(implementation = ConsultationResumeModel.class))),
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = MediaTypes.HAL_JSON_VALUE, schema = @Schema(implementation = ConsultationResumeModel.class))),
             @ApiResponse(responseCode = "404", description = "Consultation not found")
     })
     ResponseEntity<ConsultationResumeModel> findByIdConsultationResume(Integer id);
